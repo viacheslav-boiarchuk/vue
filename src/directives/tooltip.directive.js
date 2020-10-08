@@ -6,7 +6,7 @@ export default {
     },
     unmounted(el) {
         /**
-         * функция нужно чтоб при unmount компонента к котором был тултип - он так же
+         * функция нужна чтоб при unmount компонента к котором был тултип - он так же
          * удалялся, а не оставался висеть в DOM
          * */
         const instance = M.Tooltip.getInstance(el);
