@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 export default {
     state: {
         info: {
+            name: 'Slava',
             field: 600,
             bill: 799,
         },

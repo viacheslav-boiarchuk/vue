@@ -1,8 +1,10 @@
 import { createApp } from 'vue';
 import messagePlugin from '@/utils/message.plugin';
 import firebase from 'firebase/app';
+import velocityPlugin from 'velocity-vue';
 import Loader from '@/components/app/Loader.vue';
 import tooltipDirective from '@/directives/tooltip.directive';
+// import localizeFilter from '@/filters/localize.filters';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -27,11 +29,13 @@ let app;
 firebase.auth().onAuthStateChanged(() => {
     if (!app) {
         app = createApp(App);
+        app.use(velocityPlugin);
         app.use(messagePlugin);
         app.use(store);
         app.use(router);
         app.mount('#app');
         app.directive('mydirectivetooltip', tooltipDirective);
+        // app.directive('localize', localizeFilter);
         app.component('Loader', Loader);
     }
 });

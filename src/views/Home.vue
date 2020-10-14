@@ -32,6 +32,25 @@
                         </div>
                         <HomeBill
                             :rates="currency.rates"/>
+                        <Baseinput
+                            v-model="username"
+                            required
+                            placeholder="Введите имя пользователя">
+                            <template v-slot:header>
+                                <h5>Здесь мог быть заголовок страницы</h5>
+                            </template>
+                            <template v-slot:footer="paramObj">
+                                <p>Некая контактная информация ---> {{ paramObj.param.second }} </p>
+                            </template>
+                        </Baseinput>
+
+                        <button v-on:click="show = !show">
+                            Переключить
+                        </button>
+                        <transition name="fade">
+                            <p v-if="show">привет</p>
+                        </transition>
+                        <Baselist />
                     </div>
                 </div>
             </div>
@@ -41,18 +60,33 @@
 
 <script>
 import HomeBill from '@/components/HomeBill.vue';
+import Baseinput from '@/views/Baseinput.vue';
+import Baselist from '@/views/Baselist.vue';
 
 export default {
     data: () => ({
         loading: true,
         currency: [],
+        show: true,
     }),
     async mounted() {
         this.currency = await this.$store.dispatch('fetchCurrency');
         this.loading = false;
     },
     components: {
-        HomeBill,
+        HomeBill, Baseinput, Baselist,
     },
 };
 </script>
+
+<style scoped>
+    .bill-card {
+        height: 100% !important;
+    }
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+    }
+</style>
